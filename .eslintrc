@@ -28,7 +28,8 @@
     "spaced-comment": "off",
 
     // ECMAScript 6
-    "no-var": "off",
+    "no-var": "warn",
+    "no-unused-vars": "warn",
     "object-shorthand": "off",
     "prefer-arrow-callback": "off",
     "prefer-template": "off",
