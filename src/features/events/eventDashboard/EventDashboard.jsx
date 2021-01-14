@@ -11,6 +11,14 @@ const EventDashboard = ({ formOpen, setFormOpen, selectEvent, selectedEvent }) =
 
   const handleCreateEvent = (event) => {
     setEvents([...events, event]);
+    selectEvent(undefined);
+    setFormOpen(false);
+  };
+
+  const handleUpdateEvent = (updatedEvent) => {
+    setEvents(events.map((evt) => (evt.id === updatedEvent.id ? updatedEvent : evt)));
+    selectEvent(undefined);
+    setFormOpen(false);
   };
 
   return (
@@ -25,6 +33,7 @@ const EventDashboard = ({ formOpen, setFormOpen, selectEvent, selectedEvent }) =
             setEvents={setEvents}
             createEvent={handleCreateEvent}
             selectedEvent={selectedEvent}
+            updatedEvent={handleUpdateEvent}
             key={selectedEvent ? selectedEvent.id : null}
           />
         )}

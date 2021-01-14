@@ -35,7 +35,6 @@ const EventListItem = ({ event, selectEvent }) => {
         <div>{event.description}</div>
         <Button
           onClick={() => {
-            // console.log(event);
             selectEvent(event);
           }}
           color="teal"
