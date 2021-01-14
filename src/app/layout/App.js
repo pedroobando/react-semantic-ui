@@ -27,20 +27,20 @@ const App = () => {
 
   return (
     <>
-      <NavBar setFormOpen={handleCreateFormOpen} />
-      <Container className="main">
-        <Route exact path="/" component={HomePage} />
-        <Route exact path="/events" component={EventDashboard} />
-        <Route path="/events/:id" component={EventDatailedPage} />
-        <Route path="/createEvent" component={EventForm} />
-
-        {/* <EventDashboard
-          formOpen={formOpen}
-          setFormOpen={setFormOpen}
-          selectEvent={handleSelectEvent}
-          selectedEvent={selectedEvent}
-        /> */}
-      </Container>
+      <Route exact path="/" component={HomePage} />
+      <Route
+        path={'/(.+)'}
+        render={() => (
+          <>
+            <NavBar setFormOpen={handleCreateFormOpen} />
+            <Container className="main">
+              <Route exact path="/events" component={EventDashboard} />
+              <Route path="/events/:id" component={EventDatailedPage} />
+              <Route path="/createEvent" component={EventForm} />
+            </Container>
+          </>
+        )}
+      />
     </>
   );
 };
