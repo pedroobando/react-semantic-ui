@@ -13,7 +13,7 @@ const EventDetailedPage = () => {
         <EventDetailedInfo />
         <EventDetailedChart />
       </Grid.Column>
-      <Grid.Column>
+      <Grid.Column width={6}>
         <EventDetailedSidebar />
       </Grid.Column>
     </Grid>
