@@ -7,14 +7,6 @@ import sampleData from '../../../app/api/sampleData';
 const EventDashboard = () => {
   const [events, setEvents] = useState(sampleData);
 
-  // const handleCreateEvent = (event) => {
-  //   setEvents([...events, event]);
-  // };
-
-  // const handleUpdateEvent = (updatedEvent) => {
-  //   setEvents(events.map((evt) => (evt.id === updatedEvent.id ? updatedEvent : evt)));
-  // };
-
   const handleDeleteEvent = (eventId) => {
     setEvents(events.filter((evt) => evt.id !== eventId));
   };

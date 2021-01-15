@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button, Icon, Item, List, Segment } from 'semantic-ui-react';
 import EventListAttendee from './EventListAttendee';
 
-const EventListItem = ({ event, selectEvent, deleteEvent }) => {
+const EventListItem = ({ event, deleteEvent }) => {
   return (
     <Segment.Group>
       <Segment>
