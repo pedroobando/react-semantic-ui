@@ -3,13 +3,7 @@ import { Button, Form, Header, Segment } from 'semantic-ui-react';
 import cuid from 'cuid';
 import { Link } from 'react-router-dom';
 
-const EventForm = ({
-  setFormOpen,
-  setEvents,
-  createEvent,
-  selectedEvent,
-  updatedEvent,
-}) => {
+const EventForm = ({ createEvent, selectedEvent, updateEvent }) => {
   const initialValues = selectedEvent ?? {
     title: '',
     category: '',
@@ -18,7 +12,6 @@ const EventForm = ({
     venue: '',
     date: '',
   };
-
   const [values, setValues] = useState(initialValues);
 
   const handleInputChange = (e) => {
@@ -26,29 +19,38 @@ const EventForm = ({
     setValues({ ...values, [name]: value });
   };
 
-  const handleSubmitForm = () => {
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
     selectedEvent
-      ? updatedEvent({ ...selectedEvent, ...values })
+      ? updateEvent({ ...selectedEvent, ...values })
       : createEvent({
           ...values,
           id: cuid(),
-          attendees: [],
-          hostPhotoURL: 'https://randomuser.me/api/portraits/men/20.jpg',
           hostedBy: 'Bob',
+          attendees: [
+            {
+              id: cuid(),
+              photoURL: '/assets/user.png',
+              name: 'moli',
+            },
+          ],
+          hostPhotoURL: '/assets/user.png',
         });
+    // setFormOpen(false);
+    // console.log(values);
   };
 
   return (
     <Segment clearing>
-      <Header content={selectedEvent ? 'Edit the event' : 'Create new event'} />
-      <Form onSubmit={handleSubmitForm}>
+      <Header content={!selectedEvent ? 'Create new event' : 'Edit the event'} />
+      <Form onSubmit={(e) => handleFormSubmit(e)}>
         <Form.Field>
           <input
             type="text"
             placeholder="Event title"
             name="title"
             value={values.title}
-            onChange={handleInputChange}
+            onChange={(ev) => handleInputChange(ev)}
           />
         </Form.Field>
         <Form.Field>
@@ -57,15 +59,6 @@ const EventForm = ({
             placeholder="Category"
             name="category"
             value={values.category}
-            onChange={handleInputChange}
-          />
-        </Form.Field>
-        <Form.Field>
-          <input
-            type="text"
-            placeholder="City"
-            name="city"
-            value={values.city}
             onChange={handleInputChange}
           />
         </Form.Field>
@@ -81,6 +74,15 @@ const EventForm = ({
         <Form.Field>
           <input
             type="text"
+            placeholder="City"
+            name="city"
+            value={values.city}
+            onChange={handleInputChange}
+          />
+        </Form.Field>
+        <Form.Field>
+          <input
+            type="text"
             placeholder="Venue"
             name="venue"
             value={values.venue}
@@ -90,14 +92,14 @@ const EventForm = ({
         <Form.Field>
           <input
             type="date"
-            placeholder="Date"
+            placeholder="Event date"
             name="date"
             value={values.date}
             onChange={handleInputChange}
           />
         </Form.Field>
         <Button type="submit" floated="right" positive content="Submit" />
-        <Button type="button" as={Link} to="/events" floated="right" content="Cancel" />
+        <Button as={Link} to="/events" type="button" floated="right" content="Cancel" />
       </Form>
     </Segment>
   );

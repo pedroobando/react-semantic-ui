@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid } from 'semantic-ui-react';
-import EventDetailedChart from './EventDetailedChart';
+import EventDetailedChat from './EventDetailedChat';
 import EventDetailedHeader from './EventDetailedHeader';
 import EventDetailedInfo from './EventDetailedInfo';
 import EventDetailedSidebar from './EventDetailedSidebar';
@@ -11,7 +11,7 @@ const EventDetailedPage = () => {
       <Grid.Column width={10}>
         <EventDetailedHeader />
         <EventDetailedInfo />
-        <EventDetailedChart />
+        <EventDetailedChat />
       </Grid.Column>
       <Grid.Column width={6}>
         <EventDetailedSidebar />

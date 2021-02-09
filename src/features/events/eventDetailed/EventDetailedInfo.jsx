@@ -1,5 +1,5 @@
 import React from 'react';
-import { Segment, Grid, Icon, Button } from 'semantic-ui-react';
+import { Button, Grid, Icon, Segment } from 'semantic-ui-react';
 
 const EventDetailedInfo = () => {
   return (

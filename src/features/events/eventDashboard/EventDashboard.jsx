@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Grid } from 'semantic-ui-react';
-// import EventForm from '../eventForm/EventForm';
 import EventList from './EventList';
-import sampleData from '../../../app/api/sampleData';
+import { sampleData } from '../../../app/api/sampleData';
 
 const EventDashboard = () => {
   const [events, setEvents] = useState(sampleData);

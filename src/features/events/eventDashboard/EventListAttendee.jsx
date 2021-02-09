@@ -1,10 +1,10 @@
 import React from 'react';
-import { Image, List } from 'semantic-ui-react';
+import { List, Image } from 'semantic-ui-react';
 
 const EventListAttendee = ({ attendee }) => {
   return (
     <List.Item>
-      <Image size="mini" circular src={attendee.photoURL} />
+      <Image size="mini" circular src={attendee.photoURL} alt={attendee.name} />
     </List.Item>
   );
 };

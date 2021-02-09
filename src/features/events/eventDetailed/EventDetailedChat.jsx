@@ -1,7 +1,7 @@
 import React from 'react';
-import { Segment, Header, Comment, Form, Button } from 'semantic-ui-react';
+import { Button, Comment, Form, Header, Segment } from 'semantic-ui-react';
 
-const EventDetailedChart = () => {
+const EventDetailedChat = () => {
   return (
     <>
       <Segment
@@ -84,4 +84,4 @@ const EventDetailedChart = () => {
   );
 };
 
-export default EventDetailedChart;
+export default EventDetailedChat;
