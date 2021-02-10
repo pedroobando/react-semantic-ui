@@ -3,8 +3,8 @@ import { testReducer } from '../../features/sandox/testRedux';
 
 export const configureStore = () => {
   return createStore(
-    testReducer + window.__REDUX_DEVTOOLS_EXTENSION__ &&
-      window.__REDUX_DEVTOOLS_EXTENSION__()
+    testReducer /* preloadedState, */,
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   );
 };
 
