@@ -6,10 +6,19 @@ import App from './app/layout/App';
 import 'semantic-ui-css/semantic.min.css';
 import './app/layout/styles.css';
 import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { configureStore } from './app/store/configureStore';
+
+const rootEl = document.getElementById('root');
+const store = configureStore();
+
+console.log(store.getState());
 
 render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>,
-  document.getElementById('root')
+  <Provider store={store}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>,
+  rootEl
 );
