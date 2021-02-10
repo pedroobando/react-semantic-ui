@@ -1,11 +1,9 @@
 import { createStore } from 'redux';
+import { devToolsEnhancer } from 'redux-devtools-extension';
 import { testReducer } from '../../features/sandox/testRedux';
 
 export const configureStore = () => {
-  return createStore(
-    testReducer /* preloadedState, */,
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-  );
+  return createStore(testReducer, devToolsEnhancer());
 };
 
 // export default configureStore;
