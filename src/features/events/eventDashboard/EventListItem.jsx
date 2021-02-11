@@ -10,7 +10,7 @@ const EventListItem = ({ event }) => {
   const {
     title,
     date,
-    category,
+    // category,
     description,
     city,
     venue,
