@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createEvent, updateEvent } from '../eventActions';
 import * as Yup from 'yup';
 import MyTextInput from '../../../app/common/form/MyTextInput';
+import MyTextArea from '../../../app/common/form/MyTextArea';
 
 const EventForm = ({ match, history }) => {
   const dispatch = useDispatch();
@@ -61,7 +62,7 @@ const EventForm = ({ match, history }) => {
           <Header sub color="teal" content="Event Details" />
           <MyTextInput name="title" placeholder="Event title" />
           <MyTextInput name="category" placeholder="Category" />
-          <MyTextInput name="description" placeholder="Description" />
+          <MyTextArea name="description" placeholder="Description" rows={3} />
           <Header sub color="teal" content="Event Location Details" />
           <MyTextInput name="city" placeholder="City" />
           <MyTextInput name="venue" placeholder="Venue" />
