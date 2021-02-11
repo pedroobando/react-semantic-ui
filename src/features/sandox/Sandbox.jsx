@@ -5,7 +5,7 @@ import { decrement, increment } from './testRedux';
 
 const Sandbox = () => {
   const dispatch = useDispatch();
-  const { data } = useSelector((state) => state);
+  const data = useSelector((state) => state.test.data);
   return (
     <>
       <h1>Testing 123</h1>
