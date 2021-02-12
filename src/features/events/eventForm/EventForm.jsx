@@ -9,6 +9,7 @@ import * as Yup from 'yup';
 import MyTextInput from '../../../app/common/form/MyTextInput';
 import MyTextArea from '../../../app/common/form/MyTextArea';
 import MySelectInput from '../../../app/common/form/MySelectInput';
+import MyDateInput from '../../../app/common/form/MyDateInput';
 import { categoryData } from '../../../app/api/categoryOptions';
 
 const EventForm = ({ match, history }) => {
@@ -68,7 +69,14 @@ const EventForm = ({ match, history }) => {
           <Header sub color="teal" content="Event Location Details" />
           <MyTextInput name="city" placeholder="City" />
           <MyTextInput name="venue" placeholder="Venue" />
-          <MyTextInput type="date" name="date" placeholder="Event date" />
+          <MyDateInput
+            name="date"
+            placeholderText="Event date"
+            timeFormat="HH:mm"
+            showTimeSelect
+            timeCaption="time"
+            dateFormat="MMMM d, yyyy h:mm a"
+          />
           <Button type="submit" floated="right" positive content="Submit" />
           <Button as={Link} to="/events" type="button" floated="right" content="Cancel" />
         </Form>
