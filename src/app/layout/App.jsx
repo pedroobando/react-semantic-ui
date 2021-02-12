@@ -8,11 +8,13 @@ import EventDashboard from '../../features/events/eventDashboard/EventDashboard'
 import EventDetailedPage from '../../features/events/eventDetailed/EventDetailedPage';
 import EventForm from '../../features/events/eventForm/EventForm';
 import Sandbox from '../../features/sandox/Sandbox';
+import ModalManager from '../common/modals/ModalManager';
 
 const App = () => {
   const { key } = useLocation();
   return (
     <>
+      <ModalManager />
       <Route exact path="/" component={HomePage} />
       <Route
         path={'/(.+)'}
