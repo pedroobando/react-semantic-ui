@@ -8,6 +8,8 @@ import { createEvent, updateEvent } from '../eventActions';
 import * as Yup from 'yup';
 import MyTextInput from '../../../app/common/form/MyTextInput';
 import MyTextArea from '../../../app/common/form/MyTextArea';
+import MySelectInput from '../../../app/common/form/MySelectInput';
+import { categoryData } from '../../../app/api/categoryOptions';
 
 const EventForm = ({ match, history }) => {
   const dispatch = useDispatch();
@@ -61,13 +63,12 @@ const EventForm = ({ match, history }) => {
         <Form className="ui form">
           <Header sub color="teal" content="Event Details" />
           <MyTextInput name="title" placeholder="Event title" />
-          <MyTextInput name="category" placeholder="Category" />
+          <MySelectInput name="category" placeholder="Category" options={categoryData} />
           <MyTextArea name="description" placeholder="Description" rows={3} />
           <Header sub color="teal" content="Event Location Details" />
           <MyTextInput name="city" placeholder="City" />
           <MyTextInput name="venue" placeholder="Venue" />
           <MyTextInput type="date" name="date" placeholder="Event date" />
-
           <Button type="submit" floated="right" positive content="Submit" />
           <Button as={Link} to="/events" type="button" floated="right" content="Cancel" />
         </Form>
