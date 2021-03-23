@@ -39,7 +39,7 @@ const EventDetailedInfo = ({ event }) => {
           </Grid.Column>
         </Grid>
       </Segment>
-      <EventDetailedMap eventLocation={event.venue} lat={54} lng={32} />
+      <EventDetailedMap eventLocation={event.venue} />
     </Segment.Group>
   );
 };

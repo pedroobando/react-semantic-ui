@@ -11,7 +11,7 @@ const defaultProps = {
 
 const provider = new OpenStreetMapProvider();
 
-export const EventDetailedMap = ({ eventLocation, lat = 0, lng = 0 }) => {
+export const EventDetailedMap = ({ eventLocation }) => {
   const [deftProps, setDeftProps] = useState(defaultProps);
 
   const cordenadas = provider.search({ query: eventLocation });
