@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Grid, Icon, Segment } from 'semantic-ui-react';
 import { format } from 'date-fns';
 import { EventDetailedMap } from './EventDetailedMap';
 
 const EventDetailedInfo = ({ event }) => {
+  const [mapOpen, setMapOpen] = useState(false);
+
+  const handleMapOpen = () => {
+    setMapOpen(!mapOpen);
+  };
+
   return (
     <Segment.Group>
       <Segment attached="top">
@@ -35,11 +41,16 @@ const EventDetailedInfo = ({ event }) => {
             <span>{event.venue}</span>
           </Grid.Column>
           <Grid.Column width={4}>
-            <Button color="teal" size="tiny" content="Show Map" />
+            <Button
+              color="teal"
+              size="tiny"
+              content="Show Map"
+              onClick={() => handleMapOpen()}
+            />
           </Grid.Column>
         </Grid>
       </Segment>
-      <EventDetailedMap eventLocation={event.venue} />
+      {mapOpen && <EventDetailedMap eventLocation={event.venue} />}
     </Segment.Group>
   );
 };
