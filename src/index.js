@@ -6,12 +6,13 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { configureStore } from './app/store/configureStore';
 import ScrollToTop from './app/layout/ScrollToTop';
+import { loadEvent } from './features/events/eventActions';
 
 import './index.css';
 import 'semantic-ui-css/semantic.min.css';
 import './app/layout/styles.css';
 import 'react-toastify/dist/ReactToastify.min.css';
-import { loadEvent } from './features/events/eventActions';
+import 'react-calendar/dist/Calendar.css';
 
 const rootEl = document.getElementById('root');
 const store = configureStore();
