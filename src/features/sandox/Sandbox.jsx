@@ -15,7 +15,9 @@ const defaultProps = {
 
 const Sandbox = () => {
   const dispatch = useDispatch();
+  const [target, setTarget] = useState(null);
   const data = useSelector((state) => state.test.data);
+  const { loading } = useSelector((state) => state.async);
   const [mapProps, setMapProps] = useState(defaultProps);
 
   const provider = new OpenStreetMapProvider();
@@ -39,8 +41,26 @@ const Sandbox = () => {
     <>
       <h1>Testing 123</h1>
       <h2>The data is: {data}</h2>
-      <Button onClick={() => dispatch(increment(10))} content="Increment" color="green" />
-      <Button onClick={() => dispatch(decrement(20))} content="Decrement" color="red" />
+      <Button
+        name="increment"
+        loading={loading && target === 'increment'}
+        onClick={(e) => {
+          dispatch(increment(10));
+          setTarget(e.target.name);
+        }}
+        content="Increment"
+        color="green"
+      />
+      <Button
+        name="decrement"
+        loading={loading && target === 'decrement'}
+        onClick={(e) => {
+          dispatch(decrement(20));
+          setTarget(e.target.name);
+        }}
+        content="Decrement"
+        color="red"
+      />
       <Button
         onClick={() =>
           dispatch(openModal({ modalType: 'TestModal', modalProps: { data } }))
