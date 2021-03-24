@@ -11,9 +11,13 @@ import './index.css';
 import 'semantic-ui-css/semantic.min.css';
 import './app/layout/styles.css';
 import 'react-toastify/dist/ReactToastify.min.css';
+import { loadEvent } from './features/events/eventActions';
 
 const rootEl = document.getElementById('root');
 const store = configureStore();
+
+// dispara la carga de datos (Events)
+store.dispatch(loadEvent());
 
 // console.log(store.getState());
 
