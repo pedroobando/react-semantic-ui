@@ -6,8 +6,20 @@ export const sampleData = [
     category: 'culture',
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sollicitudin ligula eu leo tincidunt, quis scelerisque magna dapibus. Sed eget ipsum vel arcu vehicula ullamcorper.',
-    city: 'NY, USA',
-    venue: 'Empire State Building, 5th Avenue, New York, NY, USA',
+    city: {
+      address: 'NY, USA,',
+      latLng: {
+        lat: 40.7484405,
+        lng: -73.98566440000002,
+      },
+    },
+    venue: {
+      address: 'Empire State Building, 5th Avenue, New York',
+      latLng: {
+        lat: 40.7484405,
+        lng: -73.98566440000002,
+      },
+    },
     hostedBy: 'Bob',
     hostPhotoURL: 'https://randomuser.me/api/portraits/men/20.jpg',
     attendees: [
