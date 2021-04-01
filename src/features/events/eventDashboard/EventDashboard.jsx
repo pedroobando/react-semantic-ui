@@ -10,6 +10,11 @@ import {
   getEventsFromFirestore,
 } from '../../../app/firestore/firestoreService';
 import { listenToEvents } from '../eventActions';
+import {
+  asyncActionError,
+  asyncActionFinish,
+  asyncActionStart,
+} from '../../../app/async/asyncReducer';
 
 const EventDashboard = () => {
   const dispatch = useDispatch();
@@ -20,14 +25,18 @@ const EventDashboard = () => {
   // if (loading) return <LoadingComponent />;
 
   useEffect(() => {
+    dispatch(asyncActionStart());
     const unsubscribe = getEventsFromFirestore({
-      next: (snapshot) =>
+      next: (snapshot) => {
         dispatch(
           listenToEvents(
             snapshot.docs.map((docSnapshot) => dataFromSnapshot(docSnapshot))
           )
-        ),
-      error: (error) => console.log(error),
+        );
+        dispatch(asyncActionFinish());
+      },
+      error: (error) => dispatch(asyncActionError(error)),
+      complete: () => console.log('you will never se this message'),
     });
     return unsubscribe;
   }, [dispatch]);
