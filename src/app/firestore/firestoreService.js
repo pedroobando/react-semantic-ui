@@ -21,6 +21,6 @@ export const dataFromSnapshot = (snapshot) => {
   };
 };
 
-export const getEventsFromFirestore = (observer) => {
-  return db.collection('events').onSnapshot(observer);
+export const ListenToEventsFromFirestore = () => {
+  return db.collection('events');
 };
