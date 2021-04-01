@@ -6,7 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { configureStore } from './app/store/configureStore';
 import ScrollToTop from './app/layout/ScrollToTop';
-import { loadEvent } from './features/events/eventActions';
+// import { loadEvent } from './features/events/eventActions';
 
 import './index.css';
 import 'semantic-ui-css/semantic.min.css';
@@ -18,7 +18,7 @@ const rootEl = document.getElementById('root');
 const store = configureStore();
 
 // dispara la carga de datos (Events)
-store.dispatch(loadEvent());
+// store.dispatch(loadEvent());
 
 // console.log(store.getState());
 
