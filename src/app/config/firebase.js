@@ -1,6 +1,9 @@
 import firebase from 'firebase/app';
+import 'firebase/firestore';
+import 'firebase/database';
+import 'firebase/auth';
+import 'firebase/storage';
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: 'AIzaSyA-ijZUfvXPj1DKGx5cjXnkdOSHUEg_i0s',
   authDomain: 'reventscourse-c8e88.firebaseapp.com',

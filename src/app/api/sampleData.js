@@ -42,8 +42,20 @@ export const sampleData = [
     category: 'drinks',
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sollicitudin ligula eu leo tincidunt, quis scelerisque magna dapibus. Sed eget ipsum vel arcu vehicula ullamcorper.',
-    city: 'London, UK',
-    venue: 'Punch & Judy, Henrietta Street, London, UK',
+    city: {
+      address: 'London, UK',
+      latLng: {
+        lat: 40.7484445,
+        lng: -73.9878531,
+      },
+    },
+    venue: {
+      address: 'Punch & Judy, Henrietta Street, London, UK',
+      latLng: {
+        lat: 51.511805,
+        lng: -0.1251823,
+      },
+    },
     hostedBy: 'Tom',
     hostPhotoURL: 'https://randomuser.me/api/portraits/men/22.jpg',
     attendees: [
