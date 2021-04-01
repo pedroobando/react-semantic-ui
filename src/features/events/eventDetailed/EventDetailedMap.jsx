@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Segment } from 'semantic-ui-react';
 import { TestMap } from '../../sandox/TestMap';
-import { OpenStreetMapProvider } from 'leaflet-geosearch';
+// import { OpenStreetMapProvider } from 'leaflet-geosearch';
 
 // const defaultProps = {
 //   center: { lat: 0, lng: 0 },
@@ -13,7 +13,7 @@ import { OpenStreetMapProvider } from 'leaflet-geosearch';
 
 export const EventDetailedMap = ({ eventLocation }) => {
   // const [deftProps, setDeftProps] = useState(defaultProps);
-  const { latLng, address } = eventLocation;
+  const { latLng } = eventLocation;
 
   const defaultProps = {
     center: latLng,

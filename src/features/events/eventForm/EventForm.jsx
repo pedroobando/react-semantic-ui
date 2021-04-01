@@ -65,11 +65,7 @@ const EventForm = ({ match, history }) => {
           <Form className="ui form">
             <Header sub color="teal" content="Event Details" />
             <MyTextInput name="title" placeholder="Event title" />
-            <MySelectInput
-              name="category"
-              placeholder="Category"
-              options={categoryData}
-            />
+            <MySelectInput name="category" placeholder="Category" options={categoryData} />
             <MyTextArea name="description" placeholder="Description" rows={3} />
             <Header sub color="teal" content="Event Location Details" />
             <MyTextInput name="city" placeholder="City" />

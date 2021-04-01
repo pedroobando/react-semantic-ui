@@ -62,9 +62,7 @@ const Sandbox = () => {
         color="red"
       />
       <Button
-        onClick={() =>
-          dispatch(openModal({ modalType: 'TestModal', modalProps: { data } }))
-        }
+        onClick={() => dispatch(openModal({ modalType: 'TestModal', modalProps: { data } }))}
         content="Open Modal"
         color="teal"
       />

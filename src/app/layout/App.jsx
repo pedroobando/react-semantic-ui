@@ -10,6 +10,7 @@ import EventForm from '../../features/events/eventForm/EventForm';
 import Sandbox from '../../features/sandox/Sandbox';
 import ModalManager from '../common/modals/ModalManager';
 import { ToastContainer } from 'react-toastify';
+import ErrorComponent from '../common/error/ErrorComponent';
 
 // import './styles.css';
 const App = () => {
@@ -28,11 +29,8 @@ const App = () => {
               <Route exact path="/events" component={EventDashboard} />
               <Route exact path="/sandbox" component={Sandbox} />
               <Route path="/events/:id" component={EventDetailedPage} />
-              <Route
-                path={['/createEvent', '/manage/:id']}
-                component={EventForm}
-                key={key}
-              />
+              <Route path={['/createEvent', '/manage/:id']} component={EventForm} key={key} />
+              <Route path="/error" component={ErrorComponent} />
             </Container>
           </>
         )}
