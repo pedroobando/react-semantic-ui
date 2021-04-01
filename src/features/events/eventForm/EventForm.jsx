@@ -1,16 +1,20 @@
 import React from 'react';
 import { Button, Header, Segment } from 'semantic-ui-react';
-import cuid from 'cuid';
 import { Formik, Form } from 'formik';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { createEvent, updateEvent } from '../eventActions';
+import { createEvent, listenToEvents, updateEvent } from '../eventActions';
+import { categoryData } from '../../../app/api/categoryOptions';
+import { useFirestoreDoc } from '../../../app/hooks/useFirestoreDoc';
+import { ListenToEventFromFirestore } from '../../../app/firestore/firestoreService';
+
+import cuid from 'cuid';
 import * as Yup from 'yup';
+
 import MyTextInput from '../../../app/common/form/MyTextInput';
 import MyTextArea from '../../../app/common/form/MyTextArea';
 import MySelectInput from '../../../app/common/form/MySelectInput';
 import MyDateInput from '../../../app/common/form/MyDateInput';
-import { categoryData } from '../../../app/api/categoryOptions';
 
 const EventForm = ({ match, history }) => {
   const dispatch = useDispatch();
@@ -34,6 +38,12 @@ const EventForm = ({ match, history }) => {
     city: Yup.string().required(),
     venue: Yup.string().required(),
     date: Yup.string().required(),
+  });
+
+  useFirestoreDoc({
+    query: () => ListenToEventFromFirestore(match.params.id),
+    data: (event) => dispatch(listenToEvents([event])),
+    deps: [match.params.id, dispatch],
   });
 
   return (
