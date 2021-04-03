@@ -22,6 +22,8 @@ const EventForm = ({ match, history }) => {
     state.event.events.find((evt) => evt.id == match.params.id)
   );
 
+  console.log(selectedEvent);
+
   const initialValues = selectedEvent ?? {
     title: '',
     category: '',
