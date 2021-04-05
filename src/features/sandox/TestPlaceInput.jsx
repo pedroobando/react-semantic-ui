@@ -45,12 +45,6 @@ const TestPlaceInput = ({ onSelect, placeholder = 'search address' }) => {
   return (
     <>
       <div className="ui icon input" style={{ width: '100%' }}>
-        <i
-          className="cancel link icon "
-          onClick={() => {
-            setMapLocation(initialState);
-            setAddressList(initialStateList);
-          }}></i>
         <input
           name="address"
           value={mapLocation.address}
@@ -59,6 +53,12 @@ const TestPlaceInput = ({ onSelect, placeholder = 'search address' }) => {
           onChange={handleChangeAddress}
         />
 
+        <i
+          className="cancel link icon "
+          onClick={() => {
+            setMapLocation(initialState);
+            setAddressList(initialStateList);
+          }}></i>
         <i
           className="circular search link icon"
           style={{ marginRight: '30px' }}

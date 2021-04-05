@@ -40,24 +40,23 @@ const Sandbox = () => {
   //   }
   // }, [mapLocation.address]);
 
-  const handleChangeMapLocation = ({ target }) => {
-    setMapLocation((valueMap) => ({ ...valueMap, [target.name]: target.value }));
-  };
+  // const handleChangeMapLocation = ({ target }) => {
+  //   setMapLocation((valueMap) => ({ ...valueMap, [target.name]: target.value }));
+  // };
 
-  const handleSearchAddress = async () => {
-    const streeSearch = mapLocation.address.trim();
-    if (streeSearch.length >= 3) {
-      const srcLocation = await provider.search({ query: mapLocation.address.trim() });
-      if (srcLocation.length >= 1)
-        setMapLocation((valueMap) => ({
-          ...valueMap,
-          latLng: { lat: srcLocation[0].y, lng: srcLocation[0].x },
-        }));
-    }
-  };
+  // const handleSearchAddress = async () => {
+  //   const streeSearch = mapLocation.address.trim();
+  //   if (streeSearch.length >= 3) {
+  //     const srcLocation = await provider.search({ query: mapLocation.address.trim() });
+  //     if (srcLocation.length >= 1)
+  //       setMapLocation((valueMap) => ({
+  //         ...valueMap,
+  //         latLng: { lat: srcLocation[0].y, lng: srcLocation[0].x },
+  //       }));
+  //   }
+  // };
 
   const onSelectClick = (event) => {
-    // console.log(event);
     setMapLocation((point) => ({ ...point, latLng: event.latlng }));
   };
 
@@ -91,7 +90,7 @@ const Sandbox = () => {
         color="teal"
       />
       <hr />
-      <Input
+      {/* <Input
         placeholder="indique el lugar"
         name="address"
         value={mapLocation.address}
@@ -101,7 +100,7 @@ const Sandbox = () => {
 
       <Button color="violet" onClick={handleSearchAddress} style={{ margin: '0px 5px' }}>
         Buscar
-      </Button>
+      </Button> */}
 
       <label name="coord">{JSON.stringify(mapLocation.latLng)}</label>
 
