@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Input, Segment } from 'semantic-ui-react';
 import { openModal } from '../../app/common/modals/modalReducer';
@@ -6,6 +6,7 @@ import { TestMap } from './TestMap';
 import { decrement, increment } from './testRedux';
 
 import { OpenStreetMapProvider } from 'leaflet-geosearch';
+import TestPlaceInput from './TestPlaceInput';
 
 const initialStateMapLocation = {
   address: '',
@@ -55,6 +56,11 @@ const Sandbox = () => {
     }
   };
 
+  const onSelectClick = (event) => {
+    // console.log(event);
+    setMapLocation((point) => ({ ...point, latLng: event.latlng }));
+  };
+
   return (
     <>
       <h1>Testing 123</h1>
@@ -98,6 +104,8 @@ const Sandbox = () => {
       </Button>
 
       <label name="coord">{JSON.stringify(mapLocation.latLng)}</label>
+
+      <TestPlaceInput onSelect={onSelectClick} placeholder="Search Address or City" />
 
       <Segment style={{ width: '100%', height: '500px', marginTop: '20px' }}>
         <TestMap defaultProps={mapLocation} setLatLng={setMapLocation} />
