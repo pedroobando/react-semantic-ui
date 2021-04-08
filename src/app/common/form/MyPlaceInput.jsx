@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { useField } from 'formik';
-import { FormField, Label, Segment, List } from 'semantic-ui-react';
+import React, { useEffect, useRef, useState } from 'react';
+import { useField, useFormikContext } from 'formik';
+import { FormField, List, Segment, Label } from 'semantic-ui-react';
 import { OpenStreetMapProvider } from 'leaflet-geosearch';
 
 const initialState = {
@@ -14,17 +14,30 @@ const initialState = {
 const initialStateList = [];
 const provider = new OpenStreetMapProvider();
 
-const MyPlaceInput = ({ label, options, ...props }) => {
+const MyPlaceInput = ({ onSelect, ...props }) => {
   const [field, meta, helpers] = useField(props);
+  const { setFieldValue } = useFormikContext();
+  const fieldName = useRef(undefined);
   const [mapLocation, setMapLocation] = useState(initialState);
   const [addressList, setAddressList] = useState(initialStateList);
 
+  useEffect(() => {
+    const { address } = props;
+    console.log(field.value['address']);
+    // setFieldValue(field.name, address);
+    setMapLocation((locat) => ({ ...locat, address }));
+  }, []);
+
+  // const handleChangeAddress = ({ target }) => {
+  //   setMapLocation((valueMap) => ({ ...valueMap, address: target.value }));
+  //   fieldName.current = [target.name][0];
+  // };
+
   const handleSearchAddress = async () => {
     const streeSearch = field.value.trim();
-
     if (streeSearch.length >= 3) {
       const srcLocation = await provider.search({ query: streeSearch });
-      if (srcLocation.length > 0) {
+      if (srcLocation.length >= 1) {
         setAddressList(
           srcLocation.map((point, ind) => ({
             key: ind,
@@ -36,63 +49,67 @@ const MyPlaceInput = ({ label, options, ...props }) => {
     }
   };
 
-  const visibleList = () => {
-    if (addressList.length >= 1) return 'block';
-    else return 'none';
-  };
-
   return (
-    <FormField error={meta.touched && !!meta.error}>
-      <label>{label}</label>
-      {/* <input {...field} {...props} /> */}
-      <span className="ui icon input" style={{ width: '100%' }}>
-        <input {...field} {...props} />
+    <>
+      <FormField error={meta.touched && !!meta.error}>
+        <div className="ui icon input" style={{ width: '100%' }}>
+          <input
+            {...field}
+            // value={field.value['address']}
+            onChange={(value) => helpers.setValue({ address: value })}
+          />
+          <i
+            className="cancel link icon"
+            onClick={() => {
+              setMapLocation(initialState);
+              setAddressList(initialStateList);
+            }}></i>
+          <i
+            className="circular search link icon"
+            style={{ marginRight: '30px' }}
+            onClick={handleSearchAddress}></i>
+        </div>
+        {meta.touched && meta.error ? (
+          <Label basic color="red">
+            {meta.error}
+          </Label>
+        ) : null}
 
-        <i
-          className="cancel link icon "
-          onClick={() => {
-            setMapLocation(initialState);
-            setAddressList(initialStateList);
-          }}></i>
-        <i
-          className="circular search link icon"
-          style={{ marginRight: '30px' }}
-          onClick={handleSearchAddress}></i>
-      </span>
-
-      {meta.touched && meta.error ? (
-        <Label basic color="red">
-          {meta.error}
-        </Label>
-      ) : null}
-
-      {addressList?.length > 0 && (
-        <Segment style={{ margin: '0px auto', padding: '5px 10px', zindex: 1000 }}>
-          <List selection>
-            {addressList.map((place, indk) => (
-              <List.Item
-                key={indk}
-                icon="point"
-                content={place.address}
-                onClick={() => {
-                  setMapLocation({
-                    address: place.address,
-                    latlng: {
-                      lat: place.latlng.lat,
-                      lng: place.latlng.lng,
-                    },
-                  });
-                  setAddressList(initialStateList);
-                  helpers.setValue({ address: place.address, latLng: place.latlng });
-                  // onSelect(place);
-                }}
-                style={{ cursor: 'pointer' }}
-              />
-            ))}
-          </List>
-        </Segment>
-      )}
-    </FormField>
+        {addressList.length > 0 && (
+          <Segment style={{ margin: '0px auto', padding: '5px 10px' }}>
+            <List selection>
+              {addressList.map((place, indk) => (
+                <List.Item
+                  key={indk}
+                  icon="point"
+                  content={place.address}
+                  onClick={() => {
+                    setMapLocation({
+                      address: place.address,
+                      latlng: {
+                        lat: place.latlng.lat,
+                        lng: place.latlng.lng,
+                      },
+                    });
+                    setAddressList(initialStateList);
+                    helpers.setValue({
+                      address: place.address,
+                      latlng: {
+                        lat: place.latlng.lat,
+                        lng: place.latlng.lng,
+                      },
+                    });
+                    // setFieldValue(field.name, place.address);
+                    onSelect(place, fieldName.current);
+                  }}
+                  style={{ cursor: 'pointer' }}
+                />
+              ))}
+            </List>
+          </Segment>
+        )}
+      </FormField>
+    </>
   );
 };
 

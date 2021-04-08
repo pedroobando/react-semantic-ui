@@ -23,14 +23,14 @@ const EventForm = ({ match, history }) => {
     state.event.events.find((evt) => evt.id == match.params.id)
   );
 
-  console.log(selectedEvent);
+  // console.log(selectedEvent);
 
   const initialValues = selectedEvent ?? {
     title: '',
     category: '',
     description: '',
-    city: '',
-    venue: '',
+    city: { address: '', latlng: null },
+    venue: { address: '', latlng: null },
     date: '',
   };
 
@@ -38,8 +38,12 @@ const EventForm = ({ match, history }) => {
     title: Yup.string().required('You must provide a title'),
     category: Yup.string().required('You must provide a category'),
     description: Yup.string().required('You must provide a description'),
-    city: Yup.string().required(),
-    venue: Yup.string().required(),
+    city: Yup.object().shape({
+      address: Yup.string().required('City is required'),
+    }),
+    venue: Yup.object().shape({
+      address: Yup.string().required('Venue is required'),
+    }),
     date: Yup.string().required(),
   });
 
@@ -48,6 +52,10 @@ const EventForm = ({ match, history }) => {
     data: (event) => dispatch(listenToEvents([event])),
     deps: [match.params.id, dispatch],
   });
+
+  const handleLatlngPlace = (latlng, fieldName) => {
+    console.log(latlng, fieldName);
+  };
 
   return (
     <Segment clearing>
@@ -81,8 +89,19 @@ const EventForm = ({ match, history }) => {
             <MySelectInput name="category" placeholder="Category" options={categoryData} />
             <MyTextArea name="description" placeholder="Description" rows={3} />
             <Header sub color="teal" content="Event Location Details" />
-            <MyPlaceInput name="city" placeholder="City" />
-            <MyTextInput name="venue" placeholder="Venue" />
+            <MyPlaceInput
+              name="city"
+              placeholder="City"
+              // address={initialValues.city.address}
+              onSelect={handleLatlngPlace}
+            />
+            <MyPlaceInput
+              name="venue"
+              placeholder="Venue"
+              // address={initialValues.venue.address}
+              onSelect={handleLatlngPlace}
+            />
+            {/* <MyTextInput name="venue" placeholder="Venue" /> */}
             <MyDateInput
               name="date"
               placeholderText="Event date"

@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Input, Segment } from 'semantic-ui-react';
+import { Button, Segment } from 'semantic-ui-react';
 import { openModal } from '../../app/common/modals/modalReducer';
 import { TestMap } from './TestMap';
 import { decrement, increment } from './testRedux';
 
-import { OpenStreetMapProvider } from 'leaflet-geosearch';
 import TestPlaceInput from './TestPlaceInput';
 
 const initialStateMapLocation = {
@@ -18,46 +17,27 @@ const initialStateMapLocation = {
   scrollZoom: true,
 };
 
-const provider = new OpenStreetMapProvider();
-
+const initialStateZona = {
+  city: {
+    address: '',
+    latlng: {
+      lat: 0,
+      lng: 0,
+    },
+  },
+};
 const Sandbox = () => {
   const dispatch = useDispatch();
+  const [zona, setZona] = useState(initialStateZona);
   const [target, setTarget] = useState(null);
   const data = useSelector((state) => state.test.data);
   const { loading } = useSelector((state) => state.async);
 
   const [mapLocation, setMapLocation] = useState(initialStateMapLocation);
 
-  // useEffect(async () => {
-  //   const streeSearch = mapLocation.address.trim();
-  //   if (streeSearch.length >= 3) {
-  //     const srcLocation = await provider.search({ query: mapLocation.address.trim() });
-  //     if (srcLocation.length >= 1)
-  //       setMapLocation((valueMap) => ({
-  //         ...valueMap,
-  //         latLng: { lat: srcLocation[0].y, lng: srcLocation[0].x },
-  //       }));
-  //   }
-  // }, [mapLocation.address]);
-
-  // const handleChangeMapLocation = ({ target }) => {
-  //   setMapLocation((valueMap) => ({ ...valueMap, [target.name]: target.value }));
-  // };
-
-  // const handleSearchAddress = async () => {
-  //   const streeSearch = mapLocation.address.trim();
-  //   if (streeSearch.length >= 3) {
-  //     const srcLocation = await provider.search({ query: mapLocation.address.trim() });
-  //     if (srcLocation.length >= 1)
-  //       setMapLocation((valueMap) => ({
-  //         ...valueMap,
-  //         latLng: { lat: srcLocation[0].y, lng: srcLocation[0].x },
-  //       }));
-  //   }
-  // };
-
   const onSelectClick = (event) => {
     setMapLocation((point) => ({ ...point, latLng: event.latlng }));
+    setZona((point) => ({ ...point, city: { ...event } }));
   };
 
   return (
@@ -90,21 +70,17 @@ const Sandbox = () => {
         color="teal"
       />
       <hr />
-      {/* <Input
-        placeholder="indique el lugar"
-        name="address"
-        value={mapLocation.address}
-        onChange={handleChangeMapLocation}
-        style={{ width: '300px' }}
-      />
-
-      <Button color="violet" onClick={handleSearchAddress} style={{ margin: '0px 5px' }}>
-        Buscar
-      </Button> */}
 
       <label name="coord">{JSON.stringify(mapLocation.latLng)}</label>
+      <br />
+      <code>{JSON.stringify(zona)}</code>
 
-      <TestPlaceInput onSelect={onSelectClick} placeholder="Search Address or City" />
+      <TestPlaceInput
+        name="address"
+        address="Barcelona, Barcelonés, Barcelona, Cataluña, 08001, España"
+        placeholder="Search Address or City"
+        onSelect={onSelectClick}
+      />
 
       <Segment style={{ width: '100%', height: '500px', marginTop: '20px' }}>
         <TestMap defaultProps={mapLocation} setLatLng={setMapLocation} />

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { OpenStreetMapProvider } from 'leaflet-geosearch';
 import { List, Segment } from 'semantic-ui-react';
 
@@ -13,18 +13,26 @@ const initialState = {
 const initialStateList = [];
 const provider = new OpenStreetMapProvider();
 
-const TestPlaceInput = ({ onSelect, placeholder = 'search address' }) => {
+const TestPlaceInput = ({ onSelect, ...props }) => {
   const [mapLocation, setMapLocation] = useState(initialState);
   const [addressList, setAddressList] = useState(initialStateList);
 
+  useEffect(() => {
+    const { address } = props;
+    setMapLocation((locat) => ({ ...locat, address }));
+  }, []);
+
   const handleChangeAddress = ({ target }) => {
-    setMapLocation((valueMap) => ({ ...valueMap, [target.name]: target.value }));
+    // setMapLocation((valueMap) => ({ ...valueMap, [target.name]: target.value }));
+    setMapLocation((valueMap) => ({ ...valueMap, address: target.value }));
+    // console.log([target.name], target.value);
   };
 
   const handleSearchAddress = async () => {
     const streeSearch = mapLocation.address.trim();
+    // console.log(streeSearch);
     if (streeSearch.length >= 3) {
-      const srcLocation = await provider.search({ query: mapLocation.address.trim() });
+      const srcLocation = await provider.search({ query: streeSearch });
       if (srcLocation.length >= 1) {
         setAddressList(
           srcLocation.map((point, ind) => ({
@@ -37,20 +45,15 @@ const TestPlaceInput = ({ onSelect, placeholder = 'search address' }) => {
     }
   };
 
-  const visibleList = () => {
-    if (addressList.length >= 1) return 'block';
-    else return 'none';
-  };
-
   return (
     <>
       <div className="ui icon input" style={{ width: '100%' }}>
         <input
-          name="address"
-          value={mapLocation.address}
           type="text"
-          placeholder={placeholder}
+          text="address"
+          value={mapLocation.address}
           onChange={handleChangeAddress}
+          {...props}
         />
 
         <i
@@ -64,29 +67,31 @@ const TestPlaceInput = ({ onSelect, placeholder = 'search address' }) => {
           style={{ marginRight: '30px' }}
           onClick={handleSearchAddress}></i>
       </div>
-      <Segment style={{ margin: '0px auto', padding: '5px 10px', display: visibleList() }}>
-        <List>
-          {addressList.map((place, indk) => (
-            <List.Item
-              key={indk}
-              icon="point"
-              content={place.address}
-              onClick={() => {
-                setMapLocation({
-                  address: place.address,
-                  latlng: {
-                    lat: place.latlng.lat,
-                    lng: place.latlng.lng,
-                  },
-                });
-                setAddressList(initialStateList);
-                onSelect(place);
-              }}
-              style={{ cursor: 'pointer' }}
-            />
-          ))}
-        </List>
-      </Segment>
+      {addressList.length > 0 && (
+        <Segment style={{ margin: '0px auto', padding: '5px 10px' }}>
+          <List selection>
+            {addressList.map((place, indk) => (
+              <List.Item
+                key={indk}
+                icon="point"
+                content={place.address}
+                onClick={() => {
+                  setMapLocation({
+                    address: place.address,
+                    latlng: {
+                      lat: place.latlng.lat,
+                      lng: place.latlng.lng,
+                    },
+                  });
+                  setAddressList(initialStateList);
+                  onSelect(place);
+                }}
+                style={{ cursor: 'pointer' }}
+              />
+            ))}
+          </List>
+        </Segment>
+      )}
     </>
   );
 };
