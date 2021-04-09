@@ -52,7 +52,7 @@ const EventForm = ({ match, history }) => {
   });
 
   const handleLatlngPlace = (latlng1) => {
-    console.log(latlng1);
+    // console.log(latlng1);
   };
 
   return (
@@ -88,7 +88,7 @@ const EventForm = ({ match, history }) => {
             <MyTextArea name="description" placeholder="Description" rows={3} />
             <Header sub color="teal" content="Event Location Details" />
             <MyPlaceInput name="city" placeholder="City" onSelect={handleLatlngPlace} />
-            <MyPlaceInput name="venue" placeholder="Venue" onSelect={handleLatlngPlace} />
+            <MyPlaceInput name="venue" placeholder="Venue" />
             <MyDateInput
               name="date"
               placeholderText="Event date"

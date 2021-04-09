@@ -1,15 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useField, useFormikContext } from 'formik';
-import { FormField, List, Segment, Label } from 'semantic-ui-react';
+import React, { useState } from 'react';
+import { useField } from 'formik';
+import { FormField, List, Segment, Label, Input } from 'semantic-ui-react';
 import { OpenStreetMapProvider } from 'leaflet-geosearch';
-
-const initialState = {
-  address: '',
-  latlng: {
-    lat: 0,
-    lng: 0,
-  },
-};
 
 const initialStateList = [];
 const provider = new OpenStreetMapProvider();
@@ -47,7 +39,12 @@ const MyPlaceInput = ({ onSelect, ...props }) => {
         lng: place.latlng.lng,
       },
     });
-    onSelect({ fieldName: field.name, ...place });
+    if (typeof onSelect === 'function') onSelect({ fieldName: field.name, ...place });
+  };
+
+  const labelError = (message) => {
+    console.log(message.address);
+    return <Label basic color="red" content={message.address} />;
   };
 
   return (
@@ -55,20 +52,10 @@ const MyPlaceInput = ({ onSelect, ...props }) => {
       <FormField error={meta.touched && !!meta.error}>
         <div className="ui icon input" style={{ width: '100%' }}>
           <input {...field} value={field.value['address']} onChange={handleChangeAddress} />
-          <i
-            className="cancel link icon"
-            onClick={() => {
-              setAddressList(initialStateList);
-            }}></i>
-          <i
-            className="circular search link icon"
-            style={{ marginRight: '30px' }}
-            onClick={handleSearchAddress}></i>
+          <i className="circular search link icon" onClick={handleSearchAddress}></i>
         </div>
         {meta.touched && meta.error ? (
-          <Label basic color="red">
-            {meta.error}
-          </Label>
+          <Label basic color="red" content={meta.error.address} />
         ) : null}
 
         {addressList.length > 0 && (
