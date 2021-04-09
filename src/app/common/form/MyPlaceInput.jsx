@@ -16,31 +16,20 @@ const provider = new OpenStreetMapProvider();
 
 const MyPlaceInput = ({ onSelect, ...props }) => {
   const [field, meta, helpers] = useField(props);
-  const { setFieldValue } = useFormikContext();
-  const fieldName = useRef(undefined);
-  const [mapLocation, setMapLocation] = useState(initialState);
   const [addressList, setAddressList] = useState(initialStateList);
 
-  useEffect(() => {
-    const { address } = props;
-    console.log(field.value['address']);
-    // setFieldValue(field.name, address);
-    setMapLocation((locat) => ({ ...locat, address }));
-  }, []);
-
-  // const handleChangeAddress = ({ target }) => {
-  //   setMapLocation((valueMap) => ({ ...valueMap, address: target.value }));
-  //   fieldName.current = [target.name][0];
-  // };
+  const handleChangeAddress = ({ target }) => {
+    // setMapLocation((valueMap) => ({ ...valueMap, address: target.value }));
+    helpers.setValue({ address: target.value });
+  };
 
   const handleSearchAddress = async () => {
-    const streeSearch = field.value.trim();
+    const streeSearch = field.value['address'];
     if (streeSearch.length >= 3) {
       const srcLocation = await provider.search({ query: streeSearch });
       if (srcLocation.length >= 1) {
         setAddressList(
-          srcLocation.map((point, ind) => ({
-            key: ind,
+          srcLocation.map((point) => ({
             address: point.label,
             latlng: { lat: point.y, lng: point.x },
           }))
@@ -49,19 +38,26 @@ const MyPlaceInput = ({ onSelect, ...props }) => {
     }
   };
 
+  const handleSelectPlace = (place) => {
+    setAddressList(initialStateList);
+    helpers.setValue({
+      address: place.address,
+      latlng: {
+        lat: place.latlng.lat,
+        lng: place.latlng.lng,
+      },
+    });
+    onSelect({ fieldName: field.name, ...place });
+  };
+
   return (
     <>
       <FormField error={meta.touched && !!meta.error}>
         <div className="ui icon input" style={{ width: '100%' }}>
-          <input
-            {...field}
-            // value={field.value['address']}
-            onChange={(value) => helpers.setValue({ address: value })}
-          />
+          <input {...field} value={field.value['address']} onChange={handleChangeAddress} />
           <i
             className="cancel link icon"
             onClick={() => {
-              setMapLocation(initialState);
               setAddressList(initialStateList);
             }}></i>
           <i
@@ -83,25 +79,7 @@ const MyPlaceInput = ({ onSelect, ...props }) => {
                   key={indk}
                   icon="point"
                   content={place.address}
-                  onClick={() => {
-                    setMapLocation({
-                      address: place.address,
-                      latlng: {
-                        lat: place.latlng.lat,
-                        lng: place.latlng.lng,
-                      },
-                    });
-                    setAddressList(initialStateList);
-                    helpers.setValue({
-                      address: place.address,
-                      latlng: {
-                        lat: place.latlng.lat,
-                        lng: place.latlng.lng,
-                      },
-                    });
-                    // setFieldValue(field.name, place.address);
-                    onSelect(place, fieldName.current);
-                  }}
+                  onClick={() => handleSelectPlace(place)}
                   style={{ cursor: 'pointer' }}
                 />
               ))}

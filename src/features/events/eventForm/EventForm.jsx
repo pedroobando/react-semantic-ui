@@ -23,8 +23,6 @@ const EventForm = ({ match, history }) => {
     state.event.events.find((evt) => evt.id == match.params.id)
   );
 
-  // console.log(selectedEvent);
-
   const initialValues = selectedEvent ?? {
     title: '',
     category: '',
@@ -53,8 +51,8 @@ const EventForm = ({ match, history }) => {
     deps: [match.params.id, dispatch],
   });
 
-  const handleLatlngPlace = (latlng, fieldName) => {
-    console.log(latlng, fieldName);
+  const handleLatlngPlace = (latlng1) => {
+    console.log(latlng1);
   };
 
   return (
@@ -89,19 +87,8 @@ const EventForm = ({ match, history }) => {
             <MySelectInput name="category" placeholder="Category" options={categoryData} />
             <MyTextArea name="description" placeholder="Description" rows={3} />
             <Header sub color="teal" content="Event Location Details" />
-            <MyPlaceInput
-              name="city"
-              placeholder="City"
-              // address={initialValues.city.address}
-              onSelect={handleLatlngPlace}
-            />
-            <MyPlaceInput
-              name="venue"
-              placeholder="Venue"
-              // address={initialValues.venue.address}
-              onSelect={handleLatlngPlace}
-            />
-            {/* <MyTextInput name="venue" placeholder="Venue" /> */}
+            <MyPlaceInput name="city" placeholder="City" onSelect={handleLatlngPlace} />
+            <MyPlaceInput name="venue" placeholder="Venue" onSelect={handleLatlngPlace} />
             <MyDateInput
               name="date"
               placeholderText="Event date"
