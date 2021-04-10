@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
 
-export const TestMap = ({ defaultProps, setLatLng }) => {
-  const { address, latLng } = defaultProps;
+export const TestMap = ({ locations, setLatLng }) => {
+  const { address, latLng } = locations;
 
   if (latLng.lat === 0 && latLng.lng === 0) return <div></div>;
 

@@ -12,14 +12,12 @@ import { TestMap } from '../../sandox/TestMap';
 // const provider = new OpenStreetMapProvider();
 
 export const EventDetailedMap = ({ eventLocation }) => {
-  const { address, latLng } = eventLocation;
+  // const { address, latLng } = eventLocation;
 
-  const defaultProps = {
-    address,
-    latLng,
-    zoom: 15,
-    scrollZoom: true,
-  };
+  // const defaultProps = {
+  //   address,
+  //   latLng,
+  // };
   // console.log(latLng, address);
 
   // setDeftProps({ ...deftProps, center: latLng });
@@ -37,7 +35,7 @@ export const EventDetailedMap = ({ eventLocation }) => {
   return (
     <Segment attached="bottom" style={{ padding: 0 }}>
       <div style={{ width: '100%', height: '400px' }}>
-        <TestMap defaultProps={defaultProps} />
+        <TestMap locations={eventLocation} />
       </div>
     </Segment>
   );
