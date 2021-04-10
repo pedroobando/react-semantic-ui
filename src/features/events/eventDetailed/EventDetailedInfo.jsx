@@ -50,7 +50,7 @@ const EventDetailedInfo = ({ event }) => {
           </Grid.Column>
         </Grid>
       </Segment>
-      {mapOpen && <EventDetailedMap eventLocation={event} />}
+      {mapOpen && <EventDetailedMap eventLocation={event.venue} />}
     </Segment.Group>
   );
 };
