@@ -12,11 +12,11 @@ import { TestMap } from '../../sandox/TestMap';
 // const provider = new OpenStreetMapProvider();
 
 export const EventDetailedMap = ({ eventLocation }) => {
-  // const [deftProps, setDeftProps] = useState(defaultProps);
-  const { latLng } = eventLocation;
+  const { address, latLng } = eventLocation;
 
   const defaultProps = {
-    center: latLng,
+    address,
+    latLng,
     zoom: 15,
     scrollZoom: true,
   };

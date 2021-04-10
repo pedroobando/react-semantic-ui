@@ -4,12 +4,13 @@ import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaf
 export const TestMap = ({ defaultProps, setLatLng }) => {
   const { address, latLng } = defaultProps;
 
-  if (latLng.lat === -999 && latLng.lng === -999) return <div></div>;
+  if (latLng.lat === 0 && latLng.lng === 0) return <div></div>;
 
   const LocationMarker = () => {
     const map = useMapEvents({
       click: (e) => {
-        setLatLng((locMap) => ({ ...locMap, latLng: e.latlng }));
+        if (typeof setLatLng === 'function')
+          setLatLng((locMap) => ({ ...locMap, latLng: e.latlng }));
       },
     });
 
