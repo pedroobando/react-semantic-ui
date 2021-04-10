@@ -1,14 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
 
-const initialMarkState = {
-  fixed: false,
-  latlng: { lat: 0, lng: 0 },
-};
-
 export const TestMap = ({ defaultProps, setLatLng }) => {
-  // const [positionMap, setPositionMap] = useState(initialMarkState);
-  const { address, latLng, zoom, scrollZoom } = defaultProps;
+  const { address, latLng } = defaultProps;
 
   if (latLng.lat === -999 && latLng.lng === -999) return <div></div>;
 

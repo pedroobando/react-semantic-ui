@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useField } from 'formik';
-import { FormField, List, Segment, Label, Input } from 'semantic-ui-react';
+import { FormField, List, Segment, Label } from 'semantic-ui-react';
 import { OpenStreetMapProvider } from 'leaflet-geosearch';
 
 const initialStateList = [];
@@ -42,11 +42,6 @@ const MyPlaceInput = ({ onSelect, ...props }) => {
     if (typeof onSelect === 'function') onSelect({ fieldName: field.name, ...place });
   };
 
-  const labelError = (message) => {
-    console.log(message.address);
-    return <Label basic color="red" content={message.address} />;
-  };
-
   return (
     <>
       <FormField error={meta.touched && !!meta.error}>
@@ -55,7 +50,7 @@ const MyPlaceInput = ({ onSelect, ...props }) => {
           <i className="circular search link icon" onClick={handleSearchAddress}></i>
         </div>
         {meta.touched && meta.error ? (
-          <Label basic color="red" content={meta.error.address} />
+          <Label basic color="red" content={meta.error['address']} />
         ) : null}
 
         {addressList.length > 0 && (

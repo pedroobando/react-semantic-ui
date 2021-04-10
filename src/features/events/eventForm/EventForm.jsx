@@ -51,10 +51,6 @@ const EventForm = ({ match, history }) => {
     deps: [match.params.id, dispatch],
   });
 
-  const handleLatlngPlace = (latlng1) => {
-    // console.log(latlng1);
-  };
-
   return (
     <Segment clearing>
       <Formik
@@ -87,7 +83,7 @@ const EventForm = ({ match, history }) => {
             <MySelectInput name="category" placeholder="Category" options={categoryData} />
             <MyTextArea name="description" placeholder="Description" rows={3} />
             <Header sub color="teal" content="Event Location Details" />
-            <MyPlaceInput name="city" placeholder="City" onSelect={handleLatlngPlace} />
+            <MyPlaceInput name="city" placeholder="City" />
             <MyPlaceInput name="venue" placeholder="Venue" />
             <MyDateInput
               name="date"
