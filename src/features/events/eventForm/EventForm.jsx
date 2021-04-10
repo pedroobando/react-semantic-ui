@@ -1,3 +1,4 @@
+// global  google
 import React from 'react';
 import { Button, Header, Segment } from 'semantic-ui-react';
 import { Formik, Form } from 'formik';

@@ -19,10 +19,7 @@ const EventListItem = ({ event }) => {
     hostPhotoURL,
     attendees,
   } = event;
-  // const handleSelectEvent = () => {
-  //   // console.log(event);
-  //   selectEvent(event);
-  // };
+
   return (
     <Segment.Group>
       <Segment>
@@ -39,7 +36,7 @@ const EventListItem = ({ event }) => {
       <Segment>
         <span>
           <Icon name="clock" /> {format(date, 'MMMM d, yyyy h:mm a')}
-          <Icon name="marker" /> {venue.address}, {city.address}
+          <Icon name="marker" /> {venue.address} {city.address}
         </span>
       </Segment>
       <Segment secondary>
