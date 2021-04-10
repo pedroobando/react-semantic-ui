@@ -83,7 +83,7 @@ const Sandbox = () => {
       />
 
       <Segment style={{ width: '100%', height: '500px', marginTop: '20px' }}>
-        <TestMap defaultProps={mapLocation} setLatLng={setMapLocation} />
+        <TestMap locations={mapLocation} setLatLng={setMapLocation} />
       </Segment>
     </>
   );
