@@ -1,14 +1,10 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Button, Icon, Item, List, Segment } from 'semantic-ui-react';
-import { deleteEvent } from '../eventActions';
 import EventListAttendee from './EventListAttendee';
 import { format } from 'date-fns';
 import { deleteEventInFirestore } from '../../../app/firestore/firestoreService';
 
 const EventListItem = ({ event }) => {
-  const dispatch = useDispatch();
   const {
     title,
     date,

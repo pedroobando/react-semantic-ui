@@ -4,7 +4,7 @@ import { Button, Header, Segment } from 'semantic-ui-react';
 import { Formik, Form } from 'formik';
 import { Link, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { createEvent, listenToEvents, updateEvent } from '../eventActions';
+import { listenToEvents } from '../eventActions';
 import { categoryData } from '../../../app/api/categoryOptions';
 import { useFirestoreDoc } from '../../../app/hooks/useFirestoreDoc';
 import {
