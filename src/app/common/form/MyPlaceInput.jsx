@@ -6,7 +6,8 @@ import { OpenStreetMapProvider } from 'leaflet-geosearch';
 const initialStateList = [];
 const provider = new OpenStreetMapProvider();
 
-const MyPlaceInput = ({ onSelect, ...props }) => {
+const MyPlaceInput = ({ ...props }) => {
+  const { onSelect } = props;
   const [field, meta, helpers] = useField(props);
   const [addressList, setAddressList] = useState(initialStateList);
 
