@@ -35,7 +35,7 @@ const MyPlaceInput = ({ ...props }) => {
     setAddressList(initialStateList);
     helpers.setValue({
       address: place.address,
-      latlng: {
+      latLng: {
         lat: place.latlng.lat,
         lng: place.latlng.lng,
       },
