@@ -50,3 +50,9 @@ export const updateEventInFirestore = (event) => {
 export const deleteEventInFirestore = (eventId) => {
   return db.collection('events').doc(eventId).delete();
 };
+
+export const cancelEventToggle = (event) => {
+  return db.collection('events').doc(event.id).update({
+    isCancelled: !event.isCancelled,
+  });
+};
