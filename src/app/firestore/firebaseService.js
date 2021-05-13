@@ -1,4 +1,5 @@
 /* eslint-disable no-useless-catch */
+import { toast } from 'react-toastify';
 import firebase from '../config/firebase';
 import { setUserProfileData } from './firestoreService';
 
@@ -9,6 +10,7 @@ export const signInWithEmail = (creds) => {
 export const signOutFirebase = () => {
   return firebase.auth().signOut();
 };
+
 export const registerInFirebase = async (creds) => {
   try {
     const result = await firebase
@@ -18,5 +20,26 @@ export const registerInFirebase = async (creds) => {
     return await setUserProfileData(result.user);
   } catch (error) {
     throw error;
+  }
+};
+
+export const socialLogin = async (selectedProvider) => {
+  let provider;
+
+  if (selectedProvider === 'facebook') {
+    provider = new firebase.auth.FacebookAuthProvider();
+  }
+  if (selectedProvider === 'google') {
+    provider = new firebase.auth.GoogleAuthProvider();
+  }
+
+  try {
+    const result = await firebase.auth().signInWithPopup(provider);
+    console.log(result);
+    if (result.additionalUserInfo.isNewUser) {
+      await setUserProfileData(result.user);
+    }
+  } catch (error) {
+    toast.error(error.message);
   }
 };
