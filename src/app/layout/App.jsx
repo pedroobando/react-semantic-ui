@@ -18,6 +18,7 @@ import LoadingComponent from './LoadingComponent';
 // import './styles.css';
 const App = () => {
   const { key } = useLocation();
+  // Esta vaina media funciona.
   const { initialized } = useSelector((state) => state.async);
 
   // if (!initialized) return <LoadingComponent content="Loading app..." />;
