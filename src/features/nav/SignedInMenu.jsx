@@ -9,17 +9,18 @@ const SignedInMenu = () => {
   const { currentUser } = useSelector((state) => state.auth);
 
   const handleSignedOut = async () => {
-    await signOutFirebase();
     history.push('/');
+    await signOutFirebase();
   };
 
   return (
     <Menu.Item position="right">
       <Image avatar spaced="right" src={currentUser.photoURL || '/assets/user.png'} />
-      <Dropdown pointing="top left" text={currentUser.email}>
+      <Dropdown pointing="top left" text={currentUser.displayName}>
         <Dropdown.Menu>
           <Dropdown.Item as={Link} to="/createEvent" text="Create Event" icon="plus" />
           <Dropdown.Item text="My profile" icon="user" />
+          <Dropdown.Item as={Link} to="/account" text="My account" icon="settings" />
           <Dropdown.Item onClick={() => handleSignedOut()} text="Sign out" icon="power" />
         </Dropdown.Menu>
       </Dropdown>
