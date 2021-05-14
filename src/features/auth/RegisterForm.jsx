@@ -24,10 +24,10 @@ const RegisterForm = () => {
         onSubmit={async (values, { setSubmitting, setErrors }) => {
           try {
             await registerInFirebase(values);
-            setSubmitting(false);
             dispatch(closeModal());
           } catch (error) {
             setErrors({ auth: error.message });
+          } finally {
             setSubmitting(false);
           }
         }}>
