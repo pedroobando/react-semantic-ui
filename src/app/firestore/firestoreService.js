@@ -84,7 +84,6 @@ export const updateUserProfile = async (profile) => {
     }
     return await db.collection('users').doc(user.uid).update(profile);
   } catch (error) {
-    console.log(error);
-    // throw error;
+    throw new error();
   }
 };
