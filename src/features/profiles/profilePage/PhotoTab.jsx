@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { Button, Card, Grid, Header, Tab } from 'semantic-ui-react';
-import { format } from 'date-fns';
-import ProfileForm from './ProfileForm';
+import { Button, Card, Grid, Header, Image, Tab } from 'semantic-ui-react';
+import PhotoUploadWidget from '../../../app/common/photos/PhotoUploadWidget';
 
 const PhotoTab = ({ profile, isCurrentUser }) => {
-  const [editMode, setEditMode] = useState(false);
+  const [editMode, setEditMode] = useState(true);
   return (
     <Tab.Pane>
       <Grid>
@@ -21,7 +20,7 @@ const PhotoTab = ({ profile, isCurrentUser }) => {
         </Grid.Column>
         <Grid.Column width={16}>
           {editMode ? (
-            <p>Photo widget will go here</p>
+            <PhotoUploadWidget />
           ) : (
             <Card.Group itemsPerRow={5}>
               <Card>
