@@ -3,19 +3,21 @@ import { Button, Grid, Header, Tab } from 'semantic-ui-react';
 import { format } from 'date-fns';
 import ProfileForm from './ProfileForm';
 
-const AboutTab = ({ profile }) => {
+const AboutTab = ({ profile, isCurrentUser }) => {
   const [editMode, setEditMode] = useState(false);
   return (
     <Tab.Pane>
       <Grid>
         <Grid.Column width={16}>
           <Header floated="left" icon="user" content={`About ${profile.displayName}`} />
-          <Button
-            onClick={() => setEditMode(!editMode)}
-            floated="right"
-            basic
-            content={editMode ? 'Cancel' : 'Edit'}
-          />
+          {isCurrentUser && (
+            <Button
+              onClick={() => setEditMode(!editMode)}
+              floated="right"
+              basic
+              content={editMode ? 'Cancel' : 'Edit'}
+            />
+          )}
         </Grid.Column>
         <Grid.Column width={16}>
           {editMode ? (
