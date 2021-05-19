@@ -13,6 +13,9 @@ const SignedInMenu = () => {
     history.push('/');
     await signOutFirebase();
   };
+  // console.log(currentUserProfile);
+
+  if (!currentUserProfile) return <></>;
 
   return (
     <Menu.Item position="right">

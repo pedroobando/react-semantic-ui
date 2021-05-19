@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-catch */
 /* eslint-disable no-prototype-builtins */
 import cuid from 'cuid';
 import firebase from '../config/firebase';
@@ -84,6 +85,29 @@ export const updateUserProfile = async (profile) => {
     }
     return await db.collection('users').doc(user.uid).update(profile);
   } catch (error) {
-    throw new error();
+    throw error;
+  }
+};
+
+export const updateUserProfilePhoto = async (downloadURL, filename) => {
+  const user = firebase.auth().currentUser;
+  const userDocRef = db.collection('users').doc(user.uid);
+  try {
+    const userDoc = await userDocRef.get();
+    console.log(userDoc);
+    if (!userDoc.data().photoURL) {
+      await db.collection('users').doc(user.uid).update({
+        photoURL: downloadURL,
+      });
+      await user.updateProfile({
+        photoURL: downloadURL,
+      });
+    }
+    return await db.collection('users').doc(user.uid).collection('photos').add({
+      name: filename,
+      url: downloadURL,
+    });
+  } catch (error) {
+    throw error;
   }
 };
