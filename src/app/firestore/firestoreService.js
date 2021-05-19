@@ -111,3 +111,7 @@ export const updateUserProfilePhoto = async (downloadURL, filename) => {
     throw error;
   }
 };
+
+export const getUserPhotos = (userUid) => {
+  return db.collection('users').doc(userUid).collection('photos');
+};
