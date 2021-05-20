@@ -18,14 +18,7 @@ const ProfileContent = ({ profile, isCurrentUser }) => {
     { menuItem: 'Following', render: () => <Tab.Pane>Following</Tab.Pane> },
   ];
 
-  return (
-    <Tab
-      menu={{ fluid: true, vertical: true }}
-      menuPosition="right"
-      panes={panes}
-      activeIndex={1}
-    />
-  );
+  return <Tab menu={{ fluid: true, vertical: true }} menuPosition="right" panes={panes} />;
 };
 
 export default ProfileContent;

@@ -129,3 +129,8 @@ export const setMainPhoto = async (photo) => {
     throw error;
   }
 };
+
+export const deletePhotoFromCollection = (photoId) => {
+  const userUid = firebase.auth().currentUser.uid;
+  return db.collection('users').doc(userUid).collection('photos').doc(photoId).delete();
+};
