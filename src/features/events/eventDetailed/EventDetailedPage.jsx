@@ -13,10 +13,13 @@ import EventDetailedSidebar from './EventDetailedSidebar';
 
 const EventDetailedPage = ({ match }) => {
   const dispatch = useDispatch();
+  const { currentUser } = useSelector((state) => state.auth);
   const event = useSelector((state) =>
     state.event.events.find((evt) => evt.id == match.params.id)
   );
   const { loading, error } = useSelector((state) => state.async);
+  const isHost = event?.hostUid === currentUser?.uid;
+  const isGoing = event?.attendees?.some((a) => a.id === currentUser?.uid);
 
   useFirestoreDoc({
     query: () => ListenToEventFromFirestore(match.params.id),
@@ -30,7 +33,7 @@ const EventDetailedPage = ({ match }) => {
   return (
     <Grid>
       <Grid.Column width={10}>
-        <EventDetailedHeader event={event} />
+        <EventDetailedHeader event={event} isGoing={isGoing} isHost={isHost} />
         <EventDetailedInfo event={event} />
         <EventDetailedChat />
       </Grid.Column>
