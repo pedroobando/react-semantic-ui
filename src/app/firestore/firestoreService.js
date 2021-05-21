@@ -151,3 +151,19 @@ export const addUserAttendance = (event) => {
       attendeeIds: firebase.firestore.FieldValue.arrayUnion(user.uid),
     });
 };
+
+export const cancelUserAttendance = async (event) => {
+  const user = firebase.auth().currentUser;
+  try {
+    const eventDoc = await db.collection('events').doc(event.id).get();
+    return db
+      .collection('events')
+      .doc(event.id)
+      .update({
+        attendeeIds: firebase.firestore.FieldValue.arrayRemove(user.uid),
+        attendees: eventDoc.data().attendees.filter((attendee) => attendee.id !== user.uid),
+      });
+  } catch (error) {
+    throw error;
+  }
+};
