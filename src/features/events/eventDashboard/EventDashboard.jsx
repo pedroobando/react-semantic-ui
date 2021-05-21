@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Grid } from 'semantic-ui-react';
 import EventList from './EventList';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,7 +13,16 @@ const EventDashboard = () => {
   const dispatch = useDispatch();
   const { events } = useSelector((state) => state.event);
   const { loading } = useSelector((state) => state.async);
+  const [predicate, setPredicate] = useState(
+    new Map([
+      ['startDate', new Date()],
+      ['filter', 'all'],
+    ])
+  );
 
+  const handleSetPredicate = (key, value) => {
+    setPredicate(new Map(predicate.set(key, value)));
+  };
   // Esto es un componente general
   // if (loading) return <LoadingComponent />;
 
