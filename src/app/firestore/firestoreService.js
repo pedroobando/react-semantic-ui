@@ -32,15 +32,18 @@ export const ListenToEventFromFirestore = (eventId) => {
 };
 
 export const addEventToFirestore = (event) => {
+  const user = firebase.auth().currentUser;
   return db.collection('events').add({
     ...event,
-    hostedBy: 'Diana',
-    hostPhotoURL: 'https://randomuser.me/api/portraits/women/20.jpg',
+    hostUid: user.uid,
+    hostedBy: user.displayName,
+    hostPhotoURL: user.photoURL || null,
     attendees: firebase.firestore.FieldValue.arrayUnion({
-      id: cuid(),
-      displayName: 'Diana',
-      photoURL: 'https://randomuser.me/api/portraits/women/20.jpg',
+      id: user.uid,
+      displayName: user.displayName,
+      photoURL: user.photoURL || null,
     }),
+    attendeeIds: firebase.firestore.FieldValue.arrayUnion(user.uid),
   });
 };
 
@@ -94,7 +97,6 @@ export const updateUserProfilePhoto = async (downloadURL, filename) => {
   const userDocRef = db.collection('users').doc(user.uid);
   try {
     const userDoc = await userDocRef.get();
-    console.log(userDoc);
     if (!userDoc.data().photoURL) {
       await db.collection('users').doc(user.uid).update({
         photoURL: downloadURL,
