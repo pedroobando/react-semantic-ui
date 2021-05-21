@@ -1,6 +1,6 @@
 /* eslint-disable no-useless-catch */
 /* eslint-disable no-prototype-builtins */
-import cuid from 'cuid';
+// import cuid from 'cuid';
 import firebase from '../config/firebase';
 
 const db = firebase.firestore();
@@ -135,4 +135,19 @@ export const setMainPhoto = async (photo) => {
 export const deletePhotoFromCollection = (photoId) => {
   const userUid = firebase.auth().currentUser.uid;
   return db.collection('users').doc(userUid).collection('photos').doc(photoId).delete();
+};
+
+export const addUserAttendance = (event) => {
+  const user = firebase.auth().currentUser;
+  return db
+    .collection('events')
+    .doc(event.id)
+    .update({
+      attendees: firebase.firestore.FieldValue.arrayUnion({
+        id: user.uid,
+        displayName: user.displayName,
+        photoURL: user.photoURL || null,
+      }),
+      attendeeIds: firebase.firestore.FieldValue.arrayUnion(user.uid),
+    });
 };
